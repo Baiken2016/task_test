@@ -99,9 +99,9 @@ def update_car(car_id: int, data: cars.CarUpdate, db: Session = Depends(get_db))
     raise HTTPException(status_code=404, detail='car_model not found')
 
 
-@app.delete('/delete_car_model/{car_id}', response_model=cars.CarDelete)
-def delete_car(data: cars.CarDelete, db: Session = Depends(get_db)):
-    car_to_delete = cars_crud.delete_car(db, data.car_id)
-    if car_to_delete:
-        return car_to_delete
-    raise HTTPException(status_code=404, detail='car_model not found')
+# @app.delete('/delete_car_model/{car_id}', response_model=cars.CarDelete)
+# def delete_car(data: cars.CarDelete, db: Session = Depends(get_db)):
+#     car_to_delete = cars_crud.delete_car(db, data.car_id)
+#     if car_to_delete:
+#         return car_to_delete
+#     raise HTTPException(status_code=404, detail='car_model not found')
