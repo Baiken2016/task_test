@@ -1,3 +1,8 @@
+"""
+В этой файле используется FastAPI для создания
+всех маршрутов для операций CRUD с данными
+"""
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
@@ -12,7 +17,7 @@ app = FastAPI()
 
 
 def get_db():
-    db = SessionLocal()
+    db = SessionLocal()  # Создание сеанса из SQLAlchemy sessionmaker
 
     try:
         yield db
@@ -20,6 +25,7 @@ def get_db():
         db.close()
 
 
+# Маршруты для управления и работы с данными
 @app.post('/add_owner/', response_model=owners.OwnerCreate)
 def create_item(item: owners.OwnerCreate, db: Session = Depends(get_db)):
     return owner_crud.create_owner(db=db, item=item)
@@ -99,9 +105,9 @@ def update_car(car_id: int, data: cars.CarUpdate, db: Session = Depends(get_db))
     raise HTTPException(status_code=404, detail='car_model not found')
 
 
-# @app.delete('/delete_car_model/{car_id}', response_model=cars.CarDelete)
-# def delete_car(data: cars.CarDelete, db: Session = Depends(get_db)):
-#     car_to_delete = cars_crud.delete_car(db, data.car_id)
-#     if car_to_delete:
-#         return car_to_delete
-#     raise HTTPException(status_code=404, detail='car_model not found')
+@app.delete('/delete_car_model/{car_id}', response_model=cars.CarDelete)
+def delete_car(data: cars.CarDelete, db: Session = Depends(get_db)):
+    car_to_delete = cars_crud.delete_car(db, data.car_id)
+    if car_to_delete:
+        return car_to_delete
+    raise HTTPException(status_code=404, detail='car_model not found')

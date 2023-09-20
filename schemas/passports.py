@@ -1,3 +1,6 @@
+"""В этом файле хранятся pydantic модели таблицы о тех пасспаортах
+для валидации входных и выходных данных"""
+
 from datetime import date
 
 from pydantic import BaseModel

@@ -1,13 +1,21 @@
+"""CRUD модель для работы с базой данных таблицы о пасспортах"""
+
 import models
 from sqlalchemy.orm import Session
 from schemas import passports
 
 
 def get_passport(db: Session, passport_id: int):
+    """
+    Возвращает информацию о пасспорте по его номеру ID
+    """
     return db.query(models.TechPassport).filter(models.TechPassport.passport_id == passport_id).first()
 
 
 def create_passport(db: Session, item: passports.PassportCreate):
+    """
+    Функция добавляет новый пасспорт в таблицу
+    """
     db_passport = models.TechPassport(passport_id=item.passport_id, registration_id=item.registration_id,
                                       car_id=item.car_id, date_of_issue=item.date_of_issue,
                                       car_color=item.car_color, owner_id=item.owner_id)
@@ -18,6 +26,9 @@ def create_passport(db: Session, item: passports.PassportCreate):
 
 
 def update_passport(db: Session, passport_id: int, data: passports.PassportUpdate):
+    """
+    Функция обновляет данные уже имеющегося пасспорта в таблице
+    """
     passport_to_update = db.query(models.TechPassport).filter(models.TechPassport.passport_id == passport_id).first()
     if passport_to_update:
         for key, value in data.dict().items():
@@ -29,6 +40,9 @@ def update_passport(db: Session, passport_id: int, data: passports.PassportUpdat
 
 
 def delete_passport(db: Session, passport_id: int):
+    """
+    Функция удаляет пасспорт по его номеру ID
+    """
     passport_to_delete = db.query(models.TechPassport).get(passport_id)
     if passport_to_delete:
         db.delete(passport_to_delete)
