@@ -1,20 +1,29 @@
 """CRUD модель для работы с базой данных таблицы о владельцах"""
+from typing import Type
 
 import models
 from sqlalchemy.orm import Session
+
+from models import OwnerData
 from schemas import owners
 
 
-def get_owner(db: Session, item_id: int):
+def get_owner(db: Session, item_id: int) -> Type[models.OwnerData]:
     """
-    Функция возвращает информацию и владельце по его номеру ID
+
+    :param db: объект сесии
+    :param item_id: идентификатор владельца
+    :return: возвращает объект модели 'OwnerData' по его ID
     """
     return db.query(models.OwnerData).filter(models.OwnerData.owner_id == item_id).first()
 
 
-def create_owner(db: Session, item: owners.OwnerCreate):
+def create_owner(db: Session, item: owners.OwnerCreate) -> models.OwnerData:
     """
-    Функция добавляет информацию о новом владельце в таблицу
+
+    :param db: бъект сесии
+    :param item: Pydantic модель для валидации
+    :return: возвращает объект модели OwnerData представляющий созданного владельца
     """
     db_item = models.OwnerData(owner_id=item.owner_id, owner_name=item.owner_name,
                                registration_address=item.registration_address,
@@ -27,9 +36,13 @@ def create_owner(db: Session, item: owners.OwnerCreate):
     return db_item
 
 
-def update_owner(db: Session, record_id: int, data: owners.OwnerUpdate):
+def update_owner(db: Session, record_id: int, data: owners.OwnerUpdate) -> Type[models.OwnerData] | None:
     """
-    Функция обновляет данные об уже имеющемся в таблице владельце
+
+    :param db: объект сессии
+    :param record_id: идентификатор владельца автомобиля, запись котороую нужно обновить
+    :param data: Pydantic модель для валидации
+    :return: возвращает обновленный объект модели OwnerData, если запись обновлена, либо None
     """
     item_to_update = db.query(models.OwnerData).filter(models.OwnerData.owner_id == record_id).first()
 
@@ -42,9 +55,12 @@ def update_owner(db: Session, record_id: int, data: owners.OwnerUpdate):
     return None
 
 
-def delete_owner(db: Session, item_id: int):
+def delete_owner(db: Session, item_id: int) -> models.OwnerData | None:
     """
-    Функция удаляет все данные о владельце по его номеру ID
+
+    :param db: объект сессии
+    :param item_id: итендификатор владельца, запись которого нужно удалить
+    :return: возвращает модель владельца который был удален, либо None если запись не найдена
     """
     item_to_delete = db.query(models.OwnerData).get(item_id)
     if item_to_delete:

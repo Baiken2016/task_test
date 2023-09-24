@@ -78,7 +78,7 @@ def update_owner(passport_id: int, data: passports.PassportUpdate, db: Session =
 
 @app.delete('/delete_passport/{passport_id}', response_model=passports.PassportDelete)
 def delete_passport(data: passports.PassportDelete, db: Session = Depends(get_db)):
-    passport_do_delete = passport_crud.delete_passport(db, passport_id=data.id)
+    passport_do_delete = passport_crud.delete_passport(db, data.id)
     if passport_do_delete:
         return passport_do_delete
     raise HTTPException(status_code=404, detail='passport not found')
