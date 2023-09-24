@@ -18,4 +18,4 @@
 9. Для запуска приложения введите команду: 'uvicorn main:app --reload'
 
 Интерактивная документация по API
-![img_1.png](img_1.png)
+![img.png](img.png)
