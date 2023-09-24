@@ -2,7 +2,7 @@
 
 Чтобы установить проект, выполните следующие шаги:
 
-1. Скопируйте репозиторий: "https://github.com/Baiken2016/task_test.git"
+1. Скопируйте репозиторий: "git clone https://github.com/Baiken2016/task_test.git"
 2. Установите библеотеку fastapi: 'pip install fastapi'
 3. Установите библиотеку alembic: 'pip install alembic'
 4. Установите библиотеку sqlalchemy: 'pip install SQLAlchemy'
