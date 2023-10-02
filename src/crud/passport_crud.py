@@ -8,6 +8,8 @@ from schemas import passports
 
 def get_passport(db: Session, passport_id: int) -> Type[models.TechPassport]:
     """
+    Функция для получения информации о тех. пасспорте автомобиля
+    из базы данных, из таблицы TechPassport по его уникальному идентификатору
 
     :param db: объект сесии
     :param passport_id: идентификатор паспорта
@@ -18,6 +20,8 @@ def get_passport(db: Session, passport_id: int) -> Type[models.TechPassport]:
 
 def create_passport(db: Session, item: passports.PassportCreate) -> models.TechPassport:
     """
+    Функция для создания новой записи в базе данных, в таблице TechPassport.
+    Запись осуществляется с помощью pydantic модели PassportCreate
 
     :param db: бъект сесии
     :param item: Pydantic модель для валидации
@@ -34,6 +38,7 @@ def create_passport(db: Session, item: passports.PassportCreate) -> models.TechP
 
 def update_passport(db: Session, passport_id: int, data: passports.PassportUpdate) -> Type[models.TechPassport] | None:
     """
+    Функция для обновления записи в базе данных, в таблице TechPassport
 
     :param db: объект сессии
     :param passport_id: идентификатор пасспорта автомобиля, запись котороую нужно обновить
@@ -52,6 +57,8 @@ def update_passport(db: Session, passport_id: int, data: passports.PassportUpdat
 
 def delete_passport(db: Session, passport_id: int) -> models.TechPassport | None:
     """
+    Функция для удаления записи из базы данных, таблицы TechPassport
+    по идентификатору тех. пасспорта автомобиля
 
     :param db: объект сессии
     :param passport_id: итендификатор пасспорта, запись которую нужно удалить

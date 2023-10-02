@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+  db:
+    image: postgres
+    container_name: db
+    command: -p 1221
+    expose:
+      - 1221
+    env_file:
+      - .env-non-dev
+  app:
+    build:
+      context: .
+    env_file:
+      - .env-non-dev
+    container_name: fastapi_app
+    command: [ "/fastapi_app/docker/app.sh" ]
+    ports:
+      - 1111:8000
+    depends_on:
+      - db

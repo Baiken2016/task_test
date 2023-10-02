@@ -4,12 +4,13 @@ from typing import Type
 import models
 from sqlalchemy.orm import Session
 
-from models import OwnerData
 from schemas import owners
 
 
 def get_owner(db: Session, item_id: int) -> Type[models.OwnerData]:
     """
+    Функция для получения информации о владельце автомобиля
+    из базы данных, из таблицы OwnerData по его уникальному идентификатору
 
     :param db: объект сесии
     :param item_id: идентификатор владельца
@@ -20,6 +21,8 @@ def get_owner(db: Session, item_id: int) -> Type[models.OwnerData]:
 
 def create_owner(db: Session, item: owners.OwnerCreate) -> models.OwnerData:
     """
+    Функция для создания новой записи в базе данных, в таблице OwnerData.
+    Запись осуществляется с помощью pydantic модели OwnerCreate
 
     :param db: бъект сесии
     :param item: Pydantic модель для валидации
@@ -38,6 +41,7 @@ def create_owner(db: Session, item: owners.OwnerCreate) -> models.OwnerData:
 
 def update_owner(db: Session, record_id: int, data: owners.OwnerUpdate) -> Type[models.OwnerData] | None:
     """
+    Функция для обновления записи в базе данных, в таблице OwnerData
 
     :param db: объект сессии
     :param record_id: идентификатор владельца автомобиля, запись котороую нужно обновить
@@ -57,6 +61,8 @@ def update_owner(db: Session, record_id: int, data: owners.OwnerUpdate) -> Type[
 
 def delete_owner(db: Session, item_id: int) -> models.OwnerData | None:
     """
+    Функция для удаления записи из базы данных, таблицы OwnerData
+    по идентификатору владельца автомобиля
 
     :param db: объект сессии
     :param item_id: итендификатор владельца, запись которого нужно удалить

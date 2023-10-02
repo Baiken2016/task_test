@@ -1,4 +1,6 @@
 .idea/
-config.py
-
+src/config.py
+__pycache__/
+.env-non-dev
+.env
 

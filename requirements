@@ -1,0 +1,8 @@
+alembic==1.12.0
+fastapi==0.103.1
+pydantic
+uvicorn==0.23.2
+SQLAlchemy==2.0.20
+psycopg2
+gunicorn
+python-dotenv

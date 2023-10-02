@@ -1,5 +1,5 @@
 """CRUD модель для работы с базой данных таблицы моделей авто"""
-from typing import Type, Any
+from typing import Type
 
 import models
 from sqlalchemy.orm import Session
@@ -8,6 +8,8 @@ from schemas import cars
 
 def get_car(db: Session, car_id: int) -> Type[models.CarModels] | None:
     """
+    Функция для получения информации о модели автомобиля
+    из таблицы CarModels по его уникальному идентификатору
 
     :param db: объект сессиии SQLAlchemy
     :param car_id: идентификатор автомобиля
@@ -19,6 +21,8 @@ def get_car(db: Session, car_id: int) -> Type[models.CarModels] | None:
 
 def create_car(db: Session, item: cars.CarCreate) -> models.CarModels:
     """
+    Функция для создания новой записи в базе данных, в таблице CarModels.
+    Запись осуществляется с помощью pydantic модели CarCreate
 
     :param db: объект сессии
     :param item: Pydantic модель для валидации данных
@@ -37,6 +41,7 @@ def create_car(db: Session, item: cars.CarCreate) -> models.CarModels:
 
 def update_car(db: Session, car_id: int, data: cars.CarUpdate) -> Type[models.CarModels] | None:
     """
+    Функция для обновления записи в базе данных, в таблице CarModels
 
     :param db: объект сесиии
     :param car_id: идентификатор модели автомобиля, которую нужно обновить
@@ -55,6 +60,8 @@ def update_car(db: Session, car_id: int, data: cars.CarUpdate) -> Type[models.Ca
 
 def delete_car(db: Session, car_id: int) -> models.CarModels | None:
     """
+    Функция для удаления записи из базы данных, таблицы CarModels
+    по идентификатору модели автомобиля
 
     :param db: объект сесиии
     :param car_id: идентификатор автомобиля, который нужно удалить
