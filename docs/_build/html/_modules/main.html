@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; tech_passport 1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tech_passport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tech_passport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for main</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">database</span> <span class="kn">import</span> <span class="n">SessionLocal</span><span class="p">,</span> <span class="n">engine</span>
+<span class="kn">import</span> <span class="nn">models</span>
+<span class="kn">from</span> <span class="nn">schemas</span> <span class="kn">import</span> <span class="n">passports</span><span class="p">,</span> <span class="n">cars</span><span class="p">,</span> <span class="n">owners</span>
+<span class="kn">import</span> <span class="nn">uvicorn</span>
+<span class="kn">from</span> <span class="nn">crud</span> <span class="kn">import</span> <span class="n">owner_crud</span><span class="p">,</span> <span class="n">cars_crud</span><span class="p">,</span> <span class="n">passport_crud</span>
+
+<span class="n">models</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_db">
+<a class="viewcode-back" href="../main.html#main.get_db">[docs]</a>
+<span class="k">def</span> <span class="nf">get_db</span><span class="p">():</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">SessionLocal</span><span class="p">()</span>  <span class="c1"># Создание объекта сесии из SQLAlchemy sessionmaker</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">db</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># Маршруты для управления и работы с данными</span>
+<div class="viewcode-block" id="create_item">
+<a class="viewcode-back" href="../main.html#main.create_item">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/add_owner/&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">owners</span><span class="o">.</span><span class="n">OwnerCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">owners</span><span class="o">.</span><span class="n">OwnerCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для создания нового владельца в базе данных в таблице OwnerData</span>
+
+<span class="sd">    :param db: объект сесии</span>
+<span class="sd">    :param item: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с информацией о созданном владельце</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">owner_crud</span><span class="o">.</span><span class="n">create_owner</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_owner">
+<a class="viewcode-back" href="../main.html#main.get_owner">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/owner_data/</span><span class="si">{owner_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">owners</span><span class="o">.</span><span class="n">OwnerCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_owner</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для получения информации о владельце автомобиля</span>
+<span class="sd">    из базы данных, из таблицы OwnerData по его уникальному идентификатору</span>
+
+<span class="sd">    :param db: объект сесии</span>
+<span class="sd">    :param item_id: уникальный идентификатор владельца</span>
+
+<span class="sd">    :return: возвращает JSON типа dict который содержит информацию о владельце,</span>
+<span class="sd">             либо ошибку если владельца не существует</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">owner_crud</span><span class="o">.</span><span class="n">get_owner</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">item_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Owner not found&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">item</span></div>
+
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;/update_owner/{owner-id}&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">owners</span><span class="o">.</span><span class="n">OwnerUpdate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_owner</span><span class="p">(</span><span class="n">owner_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">owners</span><span class="o">.</span><span class="n">OwnerUpdate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для обновления информации о владельце в базе данных, в таблице OwnerData</span>
+
+<span class="sd">    :param db: объект сессии</span>
+<span class="sd">    :param owner_id: идентификатор владельца автомобиля, запись котороую нужно обновить</span>
+<span class="sd">    :param data: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с обновленной информацией</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">owner_crud</span><span class="o">.</span><span class="n">update_owner</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">owner</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">owner</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;Owner not found&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="delete_item">
+<a class="viewcode-back" href="../main.html#main.delete_item">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;/delete_owner/</span><span class="si">{owner_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">owners</span><span class="o">.</span><span class="n">OwnerDelete</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">owners</span><span class="o">.</span><span class="n">OwnerDelete</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для удаления записи из базы данных, таблицы OwnerData</span>
+<span class="sd">    по идентификатору владельца автомобиля</span>
+
+<span class="sd">    :param db: объект сессии</span>
+<span class="sd">    :param data: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict который содержит ID владельца если он удален,</span>
+<span class="sd">             либо ошибку если запись не найдена</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">owner_to_delete</span> <span class="o">=</span> <span class="n">owner_crud</span><span class="o">.</span><span class="n">delete_owner</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">owner_to_delete</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">owner_to_delete</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;owner not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="create_passport">
+<a class="viewcode-back" href="../main.html#main.create_passport">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/add_passport&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">passports</span><span class="o">.</span><span class="n">PassportCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_passport</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">passports</span><span class="o">.</span><span class="n">PassportCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для создания нового тех. пасспорта в базе данных, в таблице TechPassport.</span>
+
+
+<span class="sd">    :param db: бъект сесии</span>
+<span class="sd">    :param item: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict  информацией о созданном тех. пасспорте</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">passport_crud</span><span class="o">.</span><span class="n">create_passport</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_passport">
+<a class="viewcode-back" href="../main.html#main.get_passport">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/get_passport/</span><span class="si">{passport_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">passports</span><span class="o">.</span><span class="n">PassportCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_passport</span><span class="p">(</span><span class="n">passport_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для получения информации о тех. пасспорте автомобиля</span>
+<span class="sd">    из базы данных, из таблицы TechPassport по его уникальному идентификатору</span>
+
+<span class="sd">    :param db: объект сесии</span>
+<span class="sd">    :param passport_id: уникальный идентификатор паспорта</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с информацией о пасспорте, либо ошибку если пасспорт отсутствует</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">passport</span> <span class="o">=</span> <span class="n">passport_crud</span><span class="o">.</span><span class="n">get_passport</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">passport_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">passport</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">passport</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;passport not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="update_owner">
+<a class="viewcode-back" href="../main.html#main.update_owner">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;/update_passport/</span><span class="si">{passport_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">passports</span><span class="o">.</span><span class="n">PassportUpdate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_owner</span><span class="p">(</span><span class="n">passport_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">passports</span><span class="o">.</span><span class="n">PassportUpdate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для обновления пасспорта в базе данных, в таблице TechPassport</span>
+
+<span class="sd">    :param db: объект сессии</span>
+<span class="sd">    :param passport_id: идентификатор пасспорта, котороый нужно обновить</span>
+<span class="sd">    :param data: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с обновленной информацией</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">passport_to_update</span> <span class="o">=</span> <span class="n">passport_crud</span><span class="o">.</span><span class="n">update_passport</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">passport_id</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">passport_to_update</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">passport_to_update</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;passport not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="delete_passport">
+<a class="viewcode-back" href="../main.html#main.delete_passport">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;/delete_passport/</span><span class="si">{passport_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">passports</span><span class="o">.</span><span class="n">PassportDelete</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete_passport</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">passports</span><span class="o">.</span><span class="n">PassportDelete</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для удаления пасспорта из базы данных, таблицы TechPassport</span>
+<span class="sd">    по идентификатору тех. пасспорта</span>
+
+<span class="sd">    :param db: объект сессии</span>
+<span class="sd">    :param data: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с ID пасспорта если он удален, либо ошибку если запись не найдена</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">passport_do_delete</span> <span class="o">=</span> <span class="n">passport_crud</span><span class="o">.</span><span class="n">delete_passport</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">passport_do_delete</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">passport_do_delete</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;passport not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="create_car">
+<a class="viewcode-back" href="../main.html#main.create_car">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/add_car_model&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">cars</span><span class="o">.</span><span class="n">CarCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_car</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">cars</span><span class="o">.</span><span class="n">CarCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для создания новой модели автомобиля в базе данных, в таблице CarModels.</span>
+
+
+<span class="sd">    :param db: объект сессии</span>
+<span class="sd">    :param item: Pydantic модель для валидации данных</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с информацией о созданной модели авто</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cars_crud</span><span class="o">.</span><span class="n">create_car</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_car">
+<a class="viewcode-back" href="../main.html#main.get_car">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/get_car_model/</span><span class="si">{car_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">cars</span><span class="o">.</span><span class="n">CarCreate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_car</span><span class="p">(</span><span class="n">car_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для получения информации о модели автомобиля</span>
+<span class="sd">    из таблицы CarModels по его уникальному идентификатору</span>
+
+<span class="sd">    :param db: объект сессиии</span>
+<span class="sd">    :param car_id: идентификатор автомобиля</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с информацией о модели, либо ошибку если данная модель не существует</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">car_model</span> <span class="o">=</span> <span class="n">cars_crud</span><span class="o">.</span><span class="n">get_car</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">car_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">car_model</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">car_model</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;car_model not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="update_car">
+<a class="viewcode-back" href="../main.html#main.update_car">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;/update_car_model/</span><span class="si">{car_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">cars</span><span class="o">.</span><span class="n">CarUpdate</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_car</span><span class="p">(</span><span class="n">car_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">cars</span><span class="o">.</span><span class="n">CarUpdate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для обновления модели авто в базе данных, в таблице CarModels</span>
+
+<span class="sd">    :param db: объект сесиии</span>
+<span class="sd">    :param car_id: идентификатор модели автомобиля, которую нужно обновить</span>
+<span class="sd">    :param data: Pydantic модель, для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с обновленной информацией</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">car_to_update</span> <span class="o">=</span> <span class="n">cars_crud</span><span class="o">.</span><span class="n">update_car</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">car_id</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">car_to_update</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">car_to_update</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;car_model not found&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="delete_car">
+<a class="viewcode-back" href="../main.html#main.delete_car">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;/delete_car_model/</span><span class="si">{car_id}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">cars</span><span class="o">.</span><span class="n">CarDelete</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete_car</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">cars</span><span class="o">.</span><span class="n">CarDelete</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Функция для удаления модели авто из базы данных, таблицы CarModels</span>
+<span class="sd">    по идентификатору модели автомобиля</span>
+
+<span class="sd">    :param db: объект сесиии</span>
+<span class="sd">    :param data: Pydantic модель для валидации</span>
+
+<span class="sd">    :return: возвращает JSON типа dict с ID если модель удалена, либо ошибку если запись не найдена</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">car_to_delete</span> <span class="o">=</span> <span class="n">cars_crud</span><span class="o">.</span><span class="n">delete_car</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">car_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">car_to_delete</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">car_to_delete</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s1">&#39;car_model not found&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

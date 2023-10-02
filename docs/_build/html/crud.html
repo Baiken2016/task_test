@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crud package &mdash; tech_passport 1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="main module" href="main.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            tech_passport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">crud package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-crud.cars_crud">crud.cars_crud module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#crud.cars_crud.create_car"><code class="docutils literal notranslate"><span class="pre">create_car()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.cars_crud.delete_car"><code class="docutils literal notranslate"><span class="pre">delete_car()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.cars_crud.get_car"><code class="docutils literal notranslate"><span class="pre">get_car()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.cars_crud.update_car"><code class="docutils literal notranslate"><span class="pre">update_car()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-crud.owner_crud">crud.owner_crud module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#crud.owner_crud.create_owner"><code class="docutils literal notranslate"><span class="pre">create_owner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.owner_crud.delete_owner"><code class="docutils literal notranslate"><span class="pre">delete_owner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.owner_crud.get_owner"><code class="docutils literal notranslate"><span class="pre">get_owner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.owner_crud.update_owner"><code class="docutils literal notranslate"><span class="pre">update_owner()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-crud.passport_crud">crud.passport_crud module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#crud.passport_crud.create_passport"><code class="docutils literal notranslate"><span class="pre">create_passport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.passport_crud.delete_passport"><code class="docutils literal notranslate"><span class="pre">delete_passport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.passport_crud.get_passport"><code class="docutils literal notranslate"><span class="pre">get_passport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crud.passport_crud.update_passport"><code class="docutils literal notranslate"><span class="pre">update_passport()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-crud">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schemas.html">schemas package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tech_passport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">crud package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/crud.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="crud-package">
+<h1>crud package<a class="headerlink" href="#crud-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-crud.cars_crud">
+<span id="crud-cars-crud-module"></span><h2>crud.cars_crud module<a class="headerlink" href="#module-crud.cars_crud" title="Link to this heading"></a></h2>
+<p>CRUD модель для работы с базой данных таблицы моделей авто</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.cars_crud.create_car">
+<span class="sig-prename descclassname"><span class="pre">crud.cars_crud.</span></span><span class="sig-name descname"><span class="pre">create_car</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.cars.CarCreate" title="schemas.cars.CarCreate"><span class="pre">CarCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.CarModels" title="models.CarModels"><span class="pre">CarModels</span></a></span></span><a class="reference internal" href="_modules/crud/cars_crud.html#create_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.cars_crud.create_car" title="Link to this definition"></a></dt>
+<dd><p>Функция для создания новой записи в базе данных, в таблице CarModels.
+Запись осуществляется с помощью pydantic модели CarCreate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессии</p></li>
+<li><p><strong>item</strong> – Pydantic модель для валидации данных</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели ‘CarModels’, представляющий созданный автомобиль</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.cars_crud.delete_car">
+<span class="sig-prename descclassname"><span class="pre">crud.cars_crud.</span></span><span class="sig-name descname"><span class="pre">delete_car</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">car_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.CarModels" title="models.CarModels"><span class="pre">CarModels</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/cars_crud.html#delete_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.cars_crud.delete_car" title="Link to this definition"></a></dt>
+<dd><p>Функция для удаления записи из базы данных, таблицы CarModels
+по идентификатору модели автомобиля</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сесиии</p></li>
+<li><p><strong>car_id</strong> – идентификатор автомобиля, который нужно удалить</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает модель автомобиля который был удален, либо None если запись не найдена</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.cars_crud.get_car">
+<span class="sig-prename descclassname"><span class="pre">crud.cars_crud.</span></span><span class="sig-name descname"><span class="pre">get_car</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">car_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.CarModels" title="models.CarModels"><span class="pre">CarModels</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/cars_crud.html#get_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.cars_crud.get_car" title="Link to this definition"></a></dt>
+<dd><p>Функция для получения информации о модели автомобиля
+из таблицы CarModels по его уникальному идентификатору</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессиии SQLAlchemy</p></li>
+<li><p><strong>car_id</strong> – идентификатор автомобиля</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели ‘CarModels’ по его ID из таблицы</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.cars_crud.update_car">
+<span class="sig-prename descclassname"><span class="pre">crud.cars_crud.</span></span><span class="sig-name descname"><span class="pre">update_car</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">car_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.cars.CarUpdate" title="schemas.cars.CarUpdate"><span class="pre">CarUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.CarModels" title="models.CarModels"><span class="pre">CarModels</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/cars_crud.html#update_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.cars_crud.update_car" title="Link to this definition"></a></dt>
+<dd><p>Функция для обновления записи в базе данных, в таблице CarModels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сесиии</p></li>
+<li><p><strong>car_id</strong> – идентификатор модели автомобиля, которую нужно обновить</p></li>
+<li><p><strong>data</strong> – Pydantic модель, для валидации</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает обновленный объект модели ‘CarModels’, если запись обновлена</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-crud.owner_crud">
+<span id="crud-owner-crud-module"></span><h2>crud.owner_crud module<a class="headerlink" href="#module-crud.owner_crud" title="Link to this heading"></a></h2>
+<p>CRUD модель для работы с базой данных таблицы о владельцах</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.owner_crud.create_owner">
+<span class="sig-prename descclassname"><span class="pre">crud.owner_crud.</span></span><span class="sig-name descname"><span class="pre">create_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.owners.OwnerCreate" title="schemas.owners.OwnerCreate"><span class="pre">OwnerCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.OwnerData" title="models.OwnerData"><span class="pre">OwnerData</span></a></span></span><a class="reference internal" href="_modules/crud/owner_crud.html#create_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.owner_crud.create_owner" title="Link to this definition"></a></dt>
+<dd><p>Функция для создания новой записи в базе данных, в таблице OwnerData.
+Запись осуществляется с помощью pydantic модели OwnerCreate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – бъект сесии</p></li>
+<li><p><strong>item</strong> – Pydantic модель для валидации</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели OwnerData представляющий созданного владельца</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.owner_crud.delete_owner">
+<span class="sig-prename descclassname"><span class="pre">crud.owner_crud.</span></span><span class="sig-name descname"><span class="pre">delete_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.OwnerData" title="models.OwnerData"><span class="pre">OwnerData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/owner_crud.html#delete_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.owner_crud.delete_owner" title="Link to this definition"></a></dt>
+<dd><p>Функция для удаления записи из базы данных, таблицы OwnerData
+по идентификатору владельца автомобиля</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессии</p></li>
+<li><p><strong>item_id</strong> – итендификатор владельца, запись которого нужно удалить</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает модель владельца который был удален, либо None если запись не найдена</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.owner_crud.get_owner">
+<span class="sig-prename descclassname"><span class="pre">crud.owner_crud.</span></span><span class="sig-name descname"><span class="pre">get_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.OwnerData" title="models.OwnerData"><span class="pre">OwnerData</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/crud/owner_crud.html#get_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.owner_crud.get_owner" title="Link to this definition"></a></dt>
+<dd><p>Функция для получения информации о владельце автомобиля
+из базы данных, из таблицы OwnerData по его уникальному идентификатору</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сесии</p></li>
+<li><p><strong>item_id</strong> – идентификатор владельца</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели ‘OwnerData’ по его ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.owner_crud.update_owner">
+<span class="sig-prename descclassname"><span class="pre">crud.owner_crud.</span></span><span class="sig-name descname"><span class="pre">update_owner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.owners.OwnerUpdate" title="schemas.owners.OwnerUpdate"><span class="pre">OwnerUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.OwnerData" title="models.OwnerData"><span class="pre">OwnerData</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/owner_crud.html#update_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.owner_crud.update_owner" title="Link to this definition"></a></dt>
+<dd><p>Функция для обновления записи в базе данных, в таблице OwnerData</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессии</p></li>
+<li><p><strong>record_id</strong> – идентификатор владельца автомобиля, запись котороую нужно обновить</p></li>
+<li><p><strong>data</strong> – Pydantic модель для валидации</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает обновленный объект модели OwnerData, если запись обновлена, либо None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-crud.passport_crud">
+<span id="crud-passport-crud-module"></span><h2>crud.passport_crud module<a class="headerlink" href="#module-crud.passport_crud" title="Link to this heading"></a></h2>
+<p>CRUD модель для работы с базой данных таблицы о пасспортах</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.passport_crud.create_passport">
+<span class="sig-prename descclassname"><span class="pre">crud.passport_crud.</span></span><span class="sig-name descname"><span class="pre">create_passport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.passports.PassportCreate" title="schemas.passports.PassportCreate"><span class="pre">PassportCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.TechPassport" title="models.TechPassport"><span class="pre">TechPassport</span></a></span></span><a class="reference internal" href="_modules/crud/passport_crud.html#create_passport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.passport_crud.create_passport" title="Link to this definition"></a></dt>
+<dd><p>Функция для создания новой записи в базе данных, в таблице TechPassport.
+Запись осуществляется с помощью pydantic модели PassportCreate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – бъект сесии</p></li>
+<li><p><strong>item</strong> – Pydantic модель для валидации</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели TechPassport представляющий созданный пасспорт</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.passport_crud.delete_passport">
+<span class="sig-prename descclassname"><span class="pre">crud.passport_crud.</span></span><span class="sig-name descname"><span class="pre">delete_passport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passport_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#models.TechPassport" title="models.TechPassport"><span class="pre">TechPassport</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/passport_crud.html#delete_passport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.passport_crud.delete_passport" title="Link to this definition"></a></dt>
+<dd><p>Функция для удаления записи из базы данных, таблицы TechPassport
+по идентификатору тех. пасспорта автомобиля</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессии</p></li>
+<li><p><strong>passport_id</strong> – итендификатор пасспорта, запись которую нужно удалить</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает модель пасспорта который был удален, либо None если запись не найдена</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.passport_crud.get_passport">
+<span class="sig-prename descclassname"><span class="pre">crud.passport_crud.</span></span><span class="sig-name descname"><span class="pre">get_passport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passport_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.TechPassport" title="models.TechPassport"><span class="pre">TechPassport</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/crud/passport_crud.html#get_passport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.passport_crud.get_passport" title="Link to this definition"></a></dt>
+<dd><p>Функция для получения информации о тех. пасспорте автомобиля
+из базы данных, из таблицы TechPassport по его уникальному идентификатору</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сесии</p></li>
+<li><p><strong>passport_id</strong> – идентификатор паспорта</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает объект модели ‘TechPassport’ по его ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crud.passport_crud.update_passport">
+<span class="sig-prename descclassname"><span class="pre">crud.passport_crud.</span></span><span class="sig-name descname"><span class="pre">update_passport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passport_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="schemas.html#schemas.passports.PassportUpdate" title="schemas.passports.PassportUpdate"><span class="pre">PassportUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#models.TechPassport" title="models.TechPassport"><span class="pre">TechPassport</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/crud/passport_crud.html#update_passport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crud.passport_crud.update_passport" title="Link to this definition"></a></dt>
+<dd><p>Функция для обновления записи в базе данных, в таблице TechPassport</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – объект сессии</p></li>
+<li><p><strong>passport_id</strong> – идентификатор пасспорта автомобиля, запись котороую нужно обновить</p></li>
+<li><p><strong>data</strong> – Pydantic модель для валидации</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>возвращает обновленный объект модели TechPassport, если запись обновлена, либо None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-crud">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-crud" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
