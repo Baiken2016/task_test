@@ -1,5 +1,4 @@
 .idea/
-src/config.py
 __pycache__/
 
 dotenv-non-dev
