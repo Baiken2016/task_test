@@ -8,6 +8,8 @@ services:
       - 1221
     env_file:
       - .env-non-dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   app:
     build:
@@ -18,5 +20,10 @@ services:
     command: [ "/fastapi_app/docker/app.sh" ]
     ports:
       - 1111:8000
+    volumes:
+      - ./app:/app
     depends_on:
       - db
+
+volumes:
+  pgdata:
