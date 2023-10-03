@@ -8,6 +8,7 @@ services:
       - 1221
     env_file:
       - .env-non-dev
+
   app:
     build:
       context: .
