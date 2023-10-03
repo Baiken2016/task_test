@@ -1,8 +1,10 @@
 version:
   2
-
-python:
-  version: 3.8
+build:
+  os: ubuntu-22.04
+  tools:
+    python:
+      version: 3.8
 
 sphinx:
   configuration: docs/conf.py
