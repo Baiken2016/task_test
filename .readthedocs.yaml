@@ -5,7 +5,8 @@ build:
   tools:
     python:
       "3.11"
-  commands:
-    - pip install -r requirements
+python:
+  install:
+    - requirements: requirements
 sphinx:
   configuration: docs/conf.py
