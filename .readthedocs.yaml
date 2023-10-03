@@ -2,7 +2,7 @@ version:
   2
 
 python:
-  version: 3.11
+  version: 3.8
 
 sphinx:
   configuration: docs/conf.py
