@@ -5,7 +5,7 @@ import models
 from schemas import passports, cars, owners
 import uvicorn
 from crud import owner_crud, cars_crud, passport_crud
-
+import logging
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()

@@ -5,12 +5,13 @@ services:
       context: .
     env_file:
       - .env-non-dev
-    container_name: fastapi_app
+    container_name: fastapi
     command: ["/fastapi_app/docker/app.sh"]
     ports:
       - 1111:8000
     depends_on:
       - db
+    tty: true
   db:
     image: postgres:15
     container_name: fastapi_db
