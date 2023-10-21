@@ -5,22 +5,35 @@ services:
       context: .
     env_file:
       - .env-non-dev
-    container_name: fastapi
+    container_name: fastapi_app
     command: ["/fastapi_app/docker/app.sh"]
     ports:
       - 1111:8000
     depends_on:
       - db
+    networks:
+      - backend
+
   db:
+    restart: always
     image: postgres:15
-    container_name: fastapi_db
+    container_name: db_app
     command: -p 1221
     expose:
       - 1221
-    env_file:
-      - .env-non-dev
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
 
 
 
-volumes:
-  pgdata:
+
+
+
