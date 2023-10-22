@@ -16,15 +16,13 @@ services:
 
   db:
     restart: always
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: db_app
     command: -p 1221
     expose:
       - 1221
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env-non-dev
 
     networks:
       - backend
