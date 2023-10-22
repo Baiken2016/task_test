@@ -1,5 +1,19 @@
 version: "3.8"
 services:
+
+  db:
+    restart: always
+    image: postgres:15-alpine
+    container_name: db_app
+    command: -p 1221
+    expose:
+      - 1221
+    env_file:
+      - .env-non-dev
+    networks:
+      - backend
+
+
   app:
     build:
       context: .
@@ -14,18 +28,7 @@ services:
     networks:
       - backend
 
-  db:
-    restart: always
-    image: postgres:15-alpine
-    container_name: db_app
-    command: -p 1221
-    expose:
-      - 1221
-    env_file:
-      - .env-non-dev
 
-    networks:
-      - backend
 networks:
   backend:
     driver: bridge
